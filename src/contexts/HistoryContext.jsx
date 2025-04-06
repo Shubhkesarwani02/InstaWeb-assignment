@@ -1,14 +1,14 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable no-unused-vars */
 import { createContext, useContext, useState, useCallback } from 'react';
-import { useBuilderContext } from './BuilderContext';
+import { useBuilder } from './BuilderContext';
 
 const HistoryContext = createContext();
 
 export const useHistoryContext = () => useContext(HistoryContext);
 
 export const HistoryProvider = ({ children }) => {
-  const { elements, setElements, history, updateHistory } = useBuilderContext();
+  const { elements, setElements, history, updateHistory } = useBuilder();
   const [maxHistorySize] = useState(30);
 
   // Undo the last action

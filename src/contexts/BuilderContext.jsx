@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
@@ -19,6 +20,8 @@ export const BuilderProvider = ({ children }) => {
   const [canvasSize, setCanvasSize] = useState({ width: 1200, height: 800 });
   const [zoom, setZoom] = useState(1);
   const [history, setHistory] = useState({ past: [], present: { elements: [] }, future: [] });
+  const [showTemplateSelector, setShowTemplateSelector] = useState(false);
+  const [currentProject, setCurrentProject] = useState(null);
 
   // Initialize templates
   useEffect(() => {
@@ -107,7 +110,20 @@ export const BuilderProvider = ({ children }) => {
     }
   }, [selectedElementId]);
 
-  // Select a template
+  // Set current template directly (for TemplateSelector.jsx)
+  const setCurrentTemplate = useCallback((template) => {
+    setSelectedTemplate(template);
+    setElements([]);
+    setCanvasSize({ 
+      width: template.dimensions?.width || 1200, 
+      height: template.dimensions?.height || 800 
+    });
+    
+    // Reset history
+    setHistory({ past: [], present: { elements: [] }, future: [] });
+  }, []);
+
+  // Select a template by ID (keep this for backward compatibility)
   const selectTemplate = useCallback((templateId) => {
     const template = templates.find(t => t.id === templateId);
     if (template) {
@@ -123,6 +139,26 @@ export const BuilderProvider = ({ children }) => {
     }
   }, [templates]);
 
+  // Open/close template selector
+  const openTemplateSelector = useCallback(() => {
+    setShowTemplateSelector(true);
+  }, []);
+
+  const closeTemplateSelector = useCallback(() => {
+    setShowTemplateSelector(false);
+  }, []);
+
+  // Save and export functions
+  const saveProject = useCallback(() => {
+    console.log('Saving project...');
+    // Implement save logic here
+  }, []);
+
+  const exportWebsite = useCallback(() => {
+    console.log('Exporting website...');
+    // Implement export logic here
+  }, []);
+
   // Update history (for undo/redo feature)
   const updateHistory = useCallback((updater) => {
     setHistory(prevHistory => {
@@ -135,6 +171,7 @@ export const BuilderProvider = ({ children }) => {
 
   const value = {
     elements,
+    setElements, // Added for HistoryContext
     templates,
     selectedTemplate,
     selectedElementId,
@@ -149,6 +186,15 @@ export const BuilderProvider = ({ children }) => {
     setSelectedElementId,
     history,
     updateHistory,
+    // Added functions and properties for TemplateSelector
+    setCurrentTemplate,
+    showTemplateSelector,
+    openTemplateSelector,
+    closeTemplateSelector,
+    // Added functions for Header
+    currentProject,
+    saveProject,
+    exportWebsite
   };
 
   return (

@@ -28,7 +28,7 @@ const Toolbox = () => {
     {
       type: 'button',
       label: 'Button',
-      icon: <FaButton />,
+      icon: <FaSquare />,
       description: 'Add a clickable button'
     },
     {
