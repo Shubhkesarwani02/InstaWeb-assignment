@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import './Toolbox.css';
 import ToolboxItem from './ToolboxItem';
-import { FaHeading, FaFont, FaImage, FaButton } from 'react-icons/fa';
+import { FaHeading, FaFont, FaImage, FaSquare } from 'react-icons/fa';
 import { MdTextFields, MdCheckBox, MdRadioButtonChecked } from 'react-icons/md';
 import { TbSeparator } from 'react-icons/tb';
 
