@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
@@ -6,7 +7,9 @@ import { templatesData } from '../data/templates';
 
 const BuilderContext = createContext();
 
+// Create and export the hook with both names for compatibility
 export const useBuilderContext = () => useContext(BuilderContext);
+export const useBuilder = () => useContext(BuilderContext);
 
 export const BuilderProvider = ({ children }) => {
   const [elements, setElements] = useState([]);
@@ -15,7 +18,7 @@ export const BuilderProvider = ({ children }) => {
   const [selectedElementId, setSelectedElementId] = useState(null);
   const [canvasSize, setCanvasSize] = useState({ width: 1200, height: 800 });
   const [zoom, setZoom] = useState(1);
-  const [history, setHistory] = useState({ past: [], present: [], future: [] });
+  const [history, setHistory] = useState({ past: [], present: { elements: [] }, future: [] });
 
   // Initialize templates
   useEffect(() => {
