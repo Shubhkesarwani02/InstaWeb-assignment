@@ -1,0 +1,74 @@
+.canvas-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    flex: 1;
+    overflow: hidden;
+  }
+  
+  .canvas-tools {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    background-color: var(--background-color);
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .canvas-tool-button {
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 0.25rem 0.5rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+  }
+  
+  .canvas-tool-button:hover {
+    background-color: var(--hover-color);
+  }
+  
+  .canvas-tool-button.active {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  .zoom-display {
+    font-size: 0.875rem;
+    padding: 0.25rem 0.5rem;
+    background-color: var(--secondary-color);
+    border-radius: 4px;
+  }
+  
+  .canvas-wrapper {
+    flex: 1;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background-color: #f1f5f9;
+  }
+  
+  .canvas {
+    position: relative;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform-origin: center center;
+    transition: transform 0.3s ease;
+  }
+  
+  .element {
+    position: absolute;
+    user-select: none;
+    z-index: 1;
+  }
+  
+  .drop-zone {
+    background-color: transparent;
+    transition: background-color 0.2s ease;
+  }
+  
+  .drop-zone-active {
+    background-color: rgba(79, 70, 229, 0.1);
+  }

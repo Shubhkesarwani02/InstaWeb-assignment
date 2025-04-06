@@ -1,0 +1,135 @@
+.editor {
+    background-color: var(--background-color);
+    border-left: 1px solid var(--border-color);
+    height: 100%;
+    padding: 1rem;
+    width: var(--sidebar-width);
+    overflow-y: auto;
+  }
+  
+  .editor-header {
+    margin-bottom: 1.5rem;
+  }
+  
+  .editor-header h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+  
+  .editor-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 1rem;
+  }
+  
+  .editor-tab {
+    background: transparent;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-right: 0.5rem;
+    border-bottom: 2px solid transparent;
+  }
+  
+  .editor-tab.active {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+  }
+  
+  .editor-content {
+    padding: 0.5rem 0;
+  }
+  
+  .editor-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 2rem;
+    text-align: center;
+    color: #6b7280;
+  }
+  
+  .editor-empty-state h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  
+  .editor-empty-state p {
+    font-size: 0.875rem;
+  }
+  
+  .editor-field {
+    margin-bottom: 1rem;
+  }
+  
+  .editor-field label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+  
+  .editor-field input,
+  .editor-field select,
+  .editor-field textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+  }
+  
+  .editor-field textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+  
+  .color-picker {
+    display: flex;
+    align-items: center;
+  }
+  
+  .color-picker input[type="color"] {
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    margin-right: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem;
+  }
+  
+  .color-picker input[type="text"] {
+    flex: 1;
+  }
+  
+  .style-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .style-group-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .style-row {
+    display: flex;
+    margin-bottom: 0.75rem;
+  }
+  
+  .style-row > div {
+    flex: 1;
+    margin-right: 0.5rem;
+  }
+  
+  .style-row > div:last-child {
+    margin-right: 0;
+  }
