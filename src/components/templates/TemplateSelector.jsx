@@ -1,4 +1,3 @@
-// src/components/templates/TemplateSelector.jsx
 import React from 'react';
 import { useBuilder } from '../../contexts/BuilderContext';
 import TemplatePreview from './TemplatePreview';

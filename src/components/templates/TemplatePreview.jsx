@@ -1,4 +1,3 @@
-// src/components/templates/TemplatePreview.jsx
 import React from 'react';
 
 const TemplatePreview = ({ template, onSelect }) => {

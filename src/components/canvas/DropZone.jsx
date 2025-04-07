@@ -13,11 +13,9 @@ const DropZone = ({ zone, onElementSelect }) => {
       const dropZoneRect = dropZoneRef.current.getBoundingClientRect();
       const clientOffset = monitor.getClientOffset();
       
-      // Calculate position relative to the drop zone
       const x = clientOffset.x - dropZoneRect.left;
       const y = clientOffset.y - dropZoneRect.top;
       
-      // Add element at the drop position within this zone
       const position = {
         x: zone.x + x,
         y: zone.y + y

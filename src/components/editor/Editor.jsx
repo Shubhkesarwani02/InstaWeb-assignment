@@ -9,7 +9,6 @@ const Editor = () => {
   const [selectedElement, setSelectedElement] = useState(null);
   const [activeTab, setActiveTab] = useState('content');
 
-  // Find the selected element whenever selectedElementId changes
   useEffect(() => {
     if (selectedElementId) {
       const element = elements.find(el => el.id === selectedElementId);

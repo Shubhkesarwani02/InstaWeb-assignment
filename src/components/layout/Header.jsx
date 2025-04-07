@@ -1,4 +1,3 @@
-// src/components/layout/Header.jsx
 import React from 'react';
 import { useBuilder } from '../../contexts/BuilderContext';
 

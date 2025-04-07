@@ -6,7 +6,6 @@ const ElementEditor = ({ element }) => {
   const { updateElement, deleteElement } = useBuilderContext();
   const [content, setContent] = useState(element.content || '');
   
-  // Reset content when selected element changes
   useEffect(() => {
     setContent(element.content || '');
   }, [element]);

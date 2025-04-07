@@ -4,13 +4,11 @@ const GridOverlay = () => {
   const { canvasSize } = useBuilderContext();
   const gridSize = 20;
   
-  // Calculate the number of lines
   const numHorizontalLines = Math.floor(canvasSize.height / gridSize);
   const numVerticalLines = Math.floor(canvasSize.width / gridSize);
   
   return (
     <div className="grid-overlay" style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, pointerEvents: 'none' }}>
-      {/* Horizontal lines */}
       {Array.from({ length: numHorizontalLines }).map((_, index) => (
         <div
           key={`h-${index}`}
@@ -26,7 +24,6 @@ const GridOverlay = () => {
         />
       ))}
       
-      {/* Vertical lines */}
       {Array.from({ length: numVerticalLines }).map((_, index) => (
         <div
           key={`v-${index}`}

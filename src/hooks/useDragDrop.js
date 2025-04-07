@@ -1,7 +1,7 @@
 // src/hooks/useDragDrop.js
 /* eslint-disable no-unused-vars */
-import { useState, useRef, useEffect } from 'react';
-import { useBuilder } from '../contexts/BuilderContext';
+import { useState, useRef, useEffect } from "react";
+import { useBuilder } from "../contexts/BuilderContext";
 
 export const useDragDrop = () => {
   const { addElement, moveElement } = useBuilder();
@@ -10,29 +10,25 @@ export const useDragDrop = () => {
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const dragRef = useRef(null);
 
-  // Handle the start of a drag operation
   const handleDragStart = (e, item, isNew = false) => {
     setIsDragging(true);
     setDraggedItem({ ...item, isNew });
-    
-    // Calculate offset from cursor to element origin
+
     if (e.target && !isNew) {
       const rect = e.target.getBoundingClientRect();
       setDragOffset({
         x: e.clientX - rect.left,
-        y: e.clientY - rect.top
+        y: e.clientY - rect.top,
       });
     } else {
       setDragOffset({ x: 0, y: 0 });
     }
-    
-    // Set drag image if needed
+
     if (e.dataTransfer) {
-      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.effectAllowed = "move";
       if (isNew) {
-        // Create ghost image for new elements
-        const ghost = document.createElement('div');
-        ghost.className = 'drag-ghost';
+        const ghost = document.createElement("div");
+        ghost.className = "drag-ghost";
         ghost.textContent = item.type;
         document.body.appendChild(ghost);
         e.dataTransfer.setDragImage(ghost, 0, 0);
@@ -41,48 +37,42 @@ export const useDragDrop = () => {
     }
   };
 
-  // Handle the drop operation
   const handleDrop = (e, dropZoneId) => {
     e.preventDefault();
     if (!draggedItem) return;
-    
+
     const dropZone = document.getElementById(dropZoneId);
     if (!dropZone) return;
-    
+
     const dropZoneRect = dropZone.getBoundingClientRect();
-    
-    // Calculate position relative to drop zone
+
     const position = {
       x: e.clientX - dropZoneRect.left - dragOffset.x,
-      y: e.clientY - dropZoneRect.top - dragOffset.y
+      y: e.clientY - dropZoneRect.top - dragOffset.y,
     };
-    
+
     if (draggedItem.isNew) {
-      // Add new element
       addElement({
         ...draggedItem,
         position,
-        dropZoneId
+        dropZoneId,
       });
     } else {
-      // Move existing element
       moveElement(draggedItem.id, dropZoneId, position);
     }
-    
+
     setIsDragging(false);
     setDraggedItem(null);
   };
 
-  // Handle drag end
   const handleDragEnd = () => {
     setIsDragging(false);
     setDraggedItem(null);
   };
 
-  // Handle dragover to allow dropping
   const handleDragOver = (e) => {
     e.preventDefault();
-    e.dataTransfer.dropEffect = 'move';
+    e.dataTransfer.dropEffect = "move";
   };
 
   return {
@@ -92,6 +82,6 @@ export const useDragDrop = () => {
     handleDragStart,
     handleDrop,
     handleDragEnd,
-    handleDragOver
+    handleDragOver,
   };
 };

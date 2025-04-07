@@ -1,4 +1,3 @@
-// Element type definitions and their default properties
 const ElementTypes = {
     heading: {
       name: 'Heading',

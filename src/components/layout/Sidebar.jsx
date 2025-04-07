@@ -1,4 +1,3 @@
-// src/components/layout/Sidebar.jsx
 import React, { useState } from 'react';
 import Toolbox from '../toolbox/Toolbox';
 import { useBuilder } from '../../contexts/BuilderContext';

@@ -1,14 +1,19 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import ElementTypes from '../components/elements/ElementTypes';
-import { templatesData } from '../data/templates';
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
+import { v4 as uuidv4 } from "uuid";
+import ElementTypes from "../components/elements/ElementTypes";
+import { templatesData } from "../data/templates";
 
 const BuilderContext = createContext();
 
-// Create and export the hook with both names for compatibility
 export const useBuilderContext = () => useContext(BuilderContext);
 export const useBuilder = () => useContext(BuilderContext);
 
@@ -19,17 +24,18 @@ export const BuilderProvider = ({ children }) => {
   const [selectedElementId, setSelectedElementId] = useState(null);
   const [canvasSize, setCanvasSize] = useState({ width: 1200, height: 800 });
   const [zoom, setZoom] = useState(1);
-  const [history, setHistory] = useState({ past: [], present: { elements: [] }, future: [] });
+  const [history, setHistory] = useState({
+    past: [],
+    present: { elements: [] },
+    future: [],
+  });
   const [showTemplateSelector, setShowTemplateSelector] = useState(false);
   const [currentProject, setCurrentProject] = useState(null);
 
-  // Initialize templates
   useEffect(() => {
-    // This would potentially fetch templates from an API in a real app
     setTemplates(templatesData);
   }, []);
 
-  // Add element to the canvas
   const addElement = useCallback((type, position) => {
     if (!ElementTypes[type]) {
       console.error(`Element type not found: ${type}`);
@@ -46,100 +52,113 @@ export const BuilderProvider = ({ children }) => {
       },
       size: { ...ElementTypes[type].defaultSize },
       style: {},
-      settings: {}
+      settings: {},
     };
 
-    setElements(prevElements => [...prevElements, newElement]);
-    
-    // Update history
-    updateHistory(prevHistory => {
+    setElements((prevElements) => [...prevElements, newElement]);
+
+    updateHistory((prevHistory) => {
       return {
-        past: [...prevHistory.past, { elements: prevHistory.present.elements || [] }],
-        present: { elements: [...(prevHistory.present.elements || []), newElement] },
-        future: []
+        past: [
+          ...prevHistory.past,
+          { elements: prevHistory.present.elements || [] },
+        ],
+        present: {
+          elements: [...(prevHistory.present.elements || []), newElement],
+        },
+        future: [],
       };
     });
 
     return newElement;
   }, []);
 
-  // Update an existing element
   const updateElement = useCallback((id, updates) => {
-    setElements(prevElements => 
-      prevElements.map(element => 
+    setElements((prevElements) =>
+      prevElements.map((element) =>
         element.id === id ? { ...element, ...updates } : element
       )
     );
-    
-    // Update history
-    updateHistory(prevHistory => {
-      const updatedElements = (prevHistory.present.elements || []).map(element => 
-        element.id === id ? { ...element, ...updates } : element
+
+    updateHistory((prevHistory) => {
+      const updatedElements = (prevHistory.present.elements || []).map(
+        (element) => (element.id === id ? { ...element, ...updates } : element)
       );
 
       return {
-        past: [...prevHistory.past, { elements: prevHistory.present.elements || [] }],
+        past: [
+          ...prevHistory.past,
+          { elements: prevHistory.present.elements || [] },
+        ],
         present: { elements: updatedElements },
-        future: []
+        future: [],
       };
     });
   }, []);
 
-  // Move an element on the canvas
-  const moveElement = useCallback((id, position) => {
-    updateElement(id, { position });
-  }, [updateElement]);
+  const moveElement = useCallback(
+    (id, position) => {
+      updateElement(id, { position });
+    },
+    [updateElement]
+  );
 
-  // Delete an element from the canvas
-  const deleteElement = useCallback((id) => {
-    setElements(prevElements => prevElements.filter(element => element.id !== id));
-    
-    // Update history
-    updateHistory(prevHistory => {
-      const filteredElements = (prevHistory.present.elements || []).filter(element => element.id !== id);
+  const deleteElement = useCallback(
+    (id) => {
+      setElements((prevElements) =>
+        prevElements.filter((element) => element.id !== id)
+      );
 
-      return {
-        past: [...prevHistory.past, { elements: prevHistory.present.elements || [] }],
-        present: { elements: filteredElements },
-        future: []
-      };
-    });
-    
-    if (selectedElementId === id) {
-      setSelectedElementId(null);
-    }
-  }, [selectedElementId]);
+      updateHistory((prevHistory) => {
+        const filteredElements = (prevHistory.present.elements || []).filter(
+          (element) => element.id !== id
+        );
 
-  // Set current template directly (for TemplateSelector.jsx)
+        return {
+          past: [
+            ...prevHistory.past,
+            { elements: prevHistory.present.elements || [] },
+          ],
+          present: { elements: filteredElements },
+          future: [],
+        };
+      });
+
+      if (selectedElementId === id) {
+        setSelectedElementId(null);
+      }
+    },
+    [selectedElementId]
+  );
+
   const setCurrentTemplate = useCallback((template) => {
     setSelectedTemplate(template);
     setElements([]);
-    setCanvasSize({ 
-      width: template.dimensions?.width || 1200, 
-      height: template.dimensions?.height || 800 
+    setCanvasSize({
+      width: template.dimensions?.width || 1200,
+      height: template.dimensions?.height || 800,
     });
-    
-    // Reset history
+
     setHistory({ past: [], present: { elements: [] }, future: [] });
   }, []);
 
-  // Select a template by ID (keep this for backward compatibility)
-  const selectTemplate = useCallback((templateId) => {
-    const template = templates.find(t => t.id === templateId);
-    if (template) {
-      setSelectedTemplate(template);
-      setElements([]);
-      setCanvasSize({ 
-        width: template.dimensions?.width || 1200, 
-        height: template.dimensions?.height || 800 
-      });
-      
-      // Reset history
-      setHistory({ past: [], present: { elements: [] }, future: [] });
-    }
-  }, [templates]);
+  const selectTemplate = useCallback(
+    (templateId) => {
+      const template = templates.find((t) => t.id === templateId);
+      if (template) {
+        setSelectedTemplate(template);
+        setElements([]);
+        setCanvasSize({
+          width: template.dimensions?.width || 1200,
+          height: template.dimensions?.height || 800,
+        });
 
-  // Open/close template selector
+        setHistory({ past: [], present: { elements: [] }, future: [] });
+      }
+    },
+    [templates]
+  );
+
   const openTemplateSelector = useCallback(() => {
     setShowTemplateSelector(true);
   }, []);
@@ -148,21 +167,17 @@ export const BuilderProvider = ({ children }) => {
     setShowTemplateSelector(false);
   }, []);
 
-  // Save and export functions
   const saveProject = useCallback(() => {
-    console.log('Saving project...');
-    // Implement save logic here
+    console.log("Saving project...");
   }, []);
 
   const exportWebsite = useCallback(() => {
-    console.log('Exporting website...');
-    // Implement export logic here
+    console.log("Exporting website...");
   }, []);
 
-  // Update history (for undo/redo feature)
   const updateHistory = useCallback((updater) => {
-    setHistory(prevHistory => {
-      if (typeof updater === 'function') {
+    setHistory((prevHistory) => {
+      if (typeof updater === "function") {
         return updater(prevHistory);
       }
       return updater;
@@ -171,7 +186,7 @@ export const BuilderProvider = ({ children }) => {
 
   const value = {
     elements,
-    setElements, // Added for HistoryContext
+    setElements,
     templates,
     selectedTemplate,
     selectedElementId,
@@ -186,20 +201,16 @@ export const BuilderProvider = ({ children }) => {
     setSelectedElementId,
     history,
     updateHistory,
-    // Added functions and properties for TemplateSelector
     setCurrentTemplate,
     showTemplateSelector,
     openTemplateSelector,
     closeTemplateSelector,
-    // Added functions for Header
     currentProject,
     saveProject,
-    exportWebsite
+    exportWebsite,
   };
 
   return (
-    <BuilderContext.Provider value={value}>
-      {children}
-    </BuilderContext.Provider>
+    <BuilderContext.Provider value={value}>{children}</BuilderContext.Provider>
   );
 };

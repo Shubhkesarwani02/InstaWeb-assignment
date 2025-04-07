@@ -20,7 +20,6 @@ const Canvas = () => {
   const [isGridVisible, setIsGridVisible] = useState(true);
   const canvasRef = useRef(null);
   
-  // Define the main drop zone covering the entire canvas
   const mainDropZone = {
     x: 0,
     y: 0,
@@ -28,14 +27,11 @@ const Canvas = () => {
     height: canvasSize.height
   };
   
-  // Handle element selection
   const handleElementSelect = (element) => {
     setSelectedElementId(element.id);
   };
   
-  // Handle canvas click to deselect elements
   const handleCanvasClick = (e) => {
-    // Only deselect if clicking directly on the canvas, not on elements
     if (e.target === canvasRef.current) {
       setSelectedElementId(null);
     }
@@ -64,16 +60,13 @@ const Canvas = () => {
           }}
           onClick={handleCanvasClick}
         >
-          {/* Grid overlay */}
           {isGridVisible && <GridOverlay />}
           
-          {/* Main drop zone */}
           <DropZone 
             zone={mainDropZone} 
             onElementSelect={handleElementSelect}
           />
           
-          {/* Render all elements */}
           {elements.map(element => (
             <ElementComponent
               key={element.id}
