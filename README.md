@@ -1,4 +1,4 @@
-# InstaWeb - Website
+# InstaWeb - Website Builder
 
 ## 1. Introduction
 
