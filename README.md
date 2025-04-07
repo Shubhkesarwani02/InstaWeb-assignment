@@ -55,7 +55,6 @@ const useDragDrop = () => {
     e.preventDefault();
     const elementType = e.dataTransfer.getData('elementType');
     // Create and position the new element
-    // ...
   };
 
   return { handleDragStart, handleDrop };
