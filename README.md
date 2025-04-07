@@ -1,8 +1,8 @@
-# InstaWeb Website Builder Documentation
+# InstaWeb - Website
 
 ## 1. Introduction
 
-This documentation provides a comprehensive overview of the InstaWeb website builder project, a transformation of a form-based website builder into an intuitive drag-and-drop interface. The project enables users to create websites by visually placing and configuring elements within templates, enhancing the overall user experience while maintaining the ability to customize element properties through forms.
+This is a transformation of a form-based website builder into an intuitive drag-and-drop interface. The project enables users to create websites by visually placing and configuring elements within templates, enhancing the overall user experience while maintaining the ability to customize element properties through forms.
 
 ## 2. Project Overview
 
@@ -225,30 +225,69 @@ The project follows a logical organization with separate directories for compone
 
 ```
 website-builder/
-├── public/                # Static assets
+├── public/
+│   └── favicon.ico
 ├── src/
-│   ├── assets/            # Images and media files
-│   ├── components/        # UI components organized by function
-│   ├── contexts/          # React context providers
-│   ├── hooks/             # Custom React hooks
-│   ├── utils/             # Utility functions
-│   ├── data/              # Static data (templates, defaults)
-│   └── App.jsx            # Main application component
-└── [config files]         # Project configuration
+│   ├── assets/
+│   │   └── images/
+│   │       ├── placeholder.jpg
+│   │       └── template-thumbnails/
+│   │           ├── business.jpg
+│   │           ├── portfolio.jpg
+│   │           └── blog.jpg
+│   ├── components/
+│   │   ├── canvas/
+│   │   │   ├── Canvas.jsx
+│   │   │   ├── Canvas.css
+│   │   │   ├── DropZone.jsx
+│   │   │   └── GridOverlay.jsx
+│   │   ├── editor/
+│   │   │   ├── Editor.jsx
+│   │   │   ├── Editor.css
+│   │   │   ├── ElementEditor.jsx
+│   │   │   └── StyleEditor.jsx
+│   │   ├── elements/
+│   │   │   ├── Button.jsx
+│   │   │   ├── Heading.jsx
+│   │   │   ├── Image.jsx
+│   │   │   ├── Paragraph.jsx
+│   │   │   ├── Form.jsx
+│   │   │   └── ElementTypes.js
+│   │   ├── layout/
+│   │   │   ├── Header.jsx
+│   │   │   ├── Sidebar.jsx
+│   │   │   └── Footer.jsx
+│   │   ├── toolbox/
+│   │   │   ├── Toolbox.jsx
+│   │   │   ├── Toolbox.css
+│   │   │   └── ToolboxItem.jsx
+│   │   └── templates/
+│   │       ├── TemplateSelector.jsx
+│   │       └── TemplatePreview.jsx
+│   ├── contexts/
+│   │   ├── BuilderContext.jsx
+│   │   └── HistoryContext.jsx
+│   ├── hooks/
+│   │   ├── useDragDrop.js
+│   │   └── useElementEditor.js
+│   ├── utils/
+│   │   ├── elementUtils.js
+│   │   └── exportUtils.js
+│   ├── data/
+│   │   ├── templates.js
+│   │   └── elementDefaults.js
+│   ├── App.jsx
+│   ├── App.css
+│   ├── main.jsx
+│   └── index.css
+├── .gitignore
+├── index.html
+├── package.json
+├── vite.config.js
+└── README.md
 ```
 
 ### 10.2 Key Dependencies
 - React: Frontend library
 - Vite: Build tool and development server
 - Other dependencies as listed in package.json
-
-### 10.3 Browser Compatibility
-The website builder has been tested and confirmed to work on:
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-
-Mobile browsers:
-- iOS Safari
-- Chrome for Android
